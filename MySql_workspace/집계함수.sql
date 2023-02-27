@@ -31,10 +31,87 @@ select * from books where pages = 634;
 select title, pages from books where pages=(select max(pages) from books);
 select * from books order by pages asc limit 1;
 
-
-
-
 /* ()안에있는 셀렉트문이 먼저 실행됨*/
 select * from books where pages = (select min(pages) from books);
+
+select min(released_year) from books;
+
+select author_fname, author_lname, min(released_year) from books
+group by author_lname, author_fname;
+
+select max(pages) from books group by author_lname, author_fname;
+
+SELECT 
+	author_lname, 
+	COUNT(*) as books_written, 
+	MAX(released_year) AS latest_release,
+	MIN(released_year)  AS earliest_release,
+      MAX(pages) AS longest_page_count
+FROM books GROUP BY author_lname;
+
+SELECT 
+	author_lname, 
+        author_fname,
+	COUNT(*) as books_written, 
+	MAX(released_year) AS latest_release,
+	MIN(released_year)  AS earliest_release
+FROM books GROUP BY author_lname, author_fname;
+
+select concat(author_fname, ' ', author_lname) as author, max(pages) as 'longest book'
+from books group by author_lname, author_fname;  
+
+/* SUM */
+select sum(pages) from books;
+select sum(released_year) from books;
+SELECT 
+	author_lname, author_fname, sum(pages)
+    from books group by  author_lname, author_fname;
+    
+/* AVG */
+select avg(released_year) from books;
+select author_fname, author_lname , avg(pages) from books
+group by  author_lname, author_fname;
+
+SELECT 
+    released_year, 
+    AVG(stock_quantity), 
+    COUNT(*) FROM books
+GROUP BY released_year;
+
+/* 문제 */
+select * from books;
+
+select count(*) from books group by released_year;
+SELECT released_year, COUNT(*) 
+FROM books GROUP BY released_year;
+
+SELECT AVG(released_year) 
+FROM books GROUP BY author_lname, author_fname;
+
+select author_fname, author_lname, count(released_year) from books group by  author_lname, author_fname;
+
+select sum(stock_quantity) from books;
+select author_fname, author_lname , avg(released_year) from books group by  author_lname, author_fname;
+
+select concat(author_fname, ' ' ,author_lname)as author, max(pages)as pages 
+from books group by author_fname, author_lname, pages; 
+
+SELECT CONCAT(author_fname, ' ', author_lname) AS author, pages FROM books
+WHERE pages = (SELECT MAX(pages) FROM books);
+
+SELECT CONCAT(author_fname, ' ', author_lname) AS author, pages FROM books
+ORDER BY pages DESC LIMIT 1;
+
+select released_year as year ,count(released_year) as books, avg(pages) as 'avg pages'  
+from books group by released_year ORDER BY released_year; 
+
+
+
+
+
+
+
+
+
 
 show errors;
