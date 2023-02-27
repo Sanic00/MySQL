@@ -138,7 +138,19 @@ concat(author_lname, ',', author_fname) as author,
 concat(stock_quantity, 'in stock') as quantity
 from books;
 
-select * from books;
+INSERT INTO books
+    (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+           ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+           ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+select title from books;
+
+select author_lname from books;
+/*중복제거 select 앞에 명시되어야함 이름이 중복된것들을 distinct가 없애줌*/
+select distinct author_lname from books;
+select released_year from books;
+select distinct released_year from books;
+
 
 
 
