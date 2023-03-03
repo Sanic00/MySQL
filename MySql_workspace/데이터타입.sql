@@ -120,4 +120,19 @@ select * from comments;
 select * from comments order by created_at desc;
 
 /* 문제 */
+select now();
+select current_date();
+
+create table tweets (
+tweet_content varchar(140),
+username varchar(30),
+um timestamp default now() on update current_timestamp
+);
+
+SELECT DAYOFWEEK(CURDATE());
+SELECT DATE_FORMAT(NOW(), '%w') + 1;
+SELECT DATE_FORMAT(CURDATE(), '%m/%d/%Y');
+SELECT DATE_FORMAT(NOW(), '%M %D at %h:%i');
+select * from tweets;
+insert into tweets(tweet_content, username) values('solution!!', 'jj');
  
