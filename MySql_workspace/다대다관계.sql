@@ -63,11 +63,86 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     
     select * from series;
     select * from  reviews;
-/*first challenge*/
+/* challenge 1 */
  SELECT 
     title, rating
 FROM
     series
         JOIN
     reviews ON series.id = reviews.series_id;
-    
+/* challenge 2 */
+select 
+    title,
+    avg(rating) as avg_rating
+from series
+	join reviews 
+		on series.id = reviews.series_id
+        group by series.id
+        order by avg_rating;
+        /* challenge 3 */
+select 
+	first_name, 
+    last_name,
+    rating
+from reviewers 
+	inner join reviews
+    on reviewers.id = reviews.reviewer_id;
+		
+        /* challenge 4 */
+select 
+title,
+rating
+ from series 
+left join reviews 
+	 on series.id = reviews.series_id
+     where rating is null;
+      
+      /* challenge 5 */
+select 
+genre, 
+round(avg(rating),2) as avg_rating
+from series
+	join reviews 
+ on  series.id = reviews.series_id
+ group by genre;
+ 
+   /* challenge 6 */
+select first_name, last_name, count(rating) as count,
+ifnull(min(rating),0) as min,
+ifnull(max(rating),0) as max, 
+round(ifnull(avg(rating),0), 2) as avg,
+case 
+	when count(rating) >= 10 then 'power user'
+    when count(rating) > 0 then 'active'
+    else 'inactive'
+end as status
+   from reviewers
+   left join reviews 
+   on reviewers.id = reviews.reviewer_id
+group by reviewers.id;
+   
+ SELECT 
+    first_name,
+    last_name,
+    COUNT(rating) AS count,
+    IFNULL(MIN(rating), 0) AS min,
+    IFNULL(MAX(rating), 0) AS max,
+    ROUND(IFNULL(AVG(rating), 0), 2) AS average,
+    IF(COUNT(rating) > 0,
+        'ACTIVE',
+        'INACTIVE') AS status
+FROM
+    reviewers
+        LEFT JOIN
+    reviews ON reviewers.id = reviews.reviewer_id
+GROUP BY first_name , last_name;
+ 
+    /* challenge 7 */
+ select title, rating, concat(first_name, ' ' , last_name)  as reviewer
+ from reviewers
+ inner join reviews 
+	on reviewers.id = reviews.reviewer_id
+ inner join series
+	on series.id = reviews.series_id;
+ 
+        
